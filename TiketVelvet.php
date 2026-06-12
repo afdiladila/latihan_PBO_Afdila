@@ -2,24 +2,20 @@
 require_once 'Tiket.php';
 
 class TiketVelvet extends Tiket {
-    // Properti tambahan spesifik
     private $bantalSelimutPack;
     private $layananButler;
 
-    // Constructor
     public function __construct($id_tiket, $nama_film, $jadwal_tayang, $jumlah_kursi, $harga_dasar_tiket, $bantalSelimutPack, $layananButler) {
         parent::__construct($id_tiket, $nama_film, $jadwal_tayang, $jumlah_kursi, $harga_dasar_tiket);
         $this->bantalSelimutPack = $bantalSelimutPack;
         $this->layananButler = $layananButler;
     }
 
-    // Implementasi hitung total harga (Velvet Kelas VIP: Ada tambahan biaya kelas premium Rp 75.000 per kursi)
+    // OVERRIDING: Surcharge/biaya tambahan kelas premium sebesar 50% (dikali 1.50)
     public function hitungTotalHarga() {
-        $biayaTambahanVelvet = 75000;
-        return ($this->harga_dasar_tiket + $biayaTambahanVelvet) * $this->jumlah_kursi;
+        return ($this->jumlah_kursi * $this->harga_dasar_tiket) * 1.50;
     }
 
-    // Implementasi tampilkan info fasilitas
     public function tampilkanInfoFasilitas() {
         return "Studio Velvet Class [Fasilitas: {$this->bantalSelimutPack}, Layanan: {$this->layananButler}]";
     }
